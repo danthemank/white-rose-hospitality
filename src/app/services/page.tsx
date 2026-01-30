@@ -1,108 +1,88 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Services | White Rose Hospitality',
-  description: 'Explore our comprehensive hospitality services including event planning, catering, and more.',
+  description: 'Explore our five service lines: Events, Explore, Perfect Pour Trailers, Luxury Travel Trailers, and Autonomous Retail.',
 };
 
 const services = [
   {
-    title: 'Event Planning',
-    description:
-      'From concept to execution, we handle every detail of your special event. Whether it\'s a wedding, corporate gathering, or private celebration, our team ensures a seamless experience.',
-    features: ['Venue selection', 'Timeline management', 'Vendor coordination', 'Day-of coordination'],
+    title: 'Events',
+    description: 'Full-service event hospitality including mobile bar service, catering coordination, and event planning for festivals, weddings, corporate events, and private parties across Central Pennsylvania.',
+    image: '/images/perfect-pour-trailers.jpg',
+    href: '/services/events',
   },
   {
-    title: 'Catering Services',
-    description:
-      'Delight your guests with our exceptional culinary offerings. Our catering team creates customized menus that perfectly complement your event.',
-    features: ['Custom menu design', 'Dietary accommodations', 'Professional service staff', 'Bar services'],
+    title: 'Explore',
+    description: 'Curated local tourism experiences showcasing the best of Central PA — from historic Gettysburg battlefields to the vibrant streets of Lancaster, the capital city of Harrisburg, and the scenic Susquehanna River trails.',
+    image: '/images/white-rose-hospitality-gettysburg.jpg',
+    href: '/services/explore',
   },
   {
-    title: 'Corporate Events',
-    description:
-      'Elevate your business gatherings with our professional corporate event services. From conferences to team-building activities, we create impactful experiences.',
-    features: ['Conference planning', 'Team building events', 'Product launches', 'Networking events'],
+    title: 'Perfect Pour Trailers',
+    description: 'Custom-built mobile bar trailers designed for breweries and beverage suppliers. Featuring multiple beer taps, sleek black exterior, spacious countertops, and integrated cooling — perfect for on-the-go sales at festivals and events.',
+    image: '/images/perfect-pour-trailers.jpg',
+    href: '/services/perfect-pour-trailers',
   },
   {
-    title: 'Wedding Services',
-    description:
-      'Make your special day truly unforgettable. Our wedding specialists work closely with you to bring your vision to life with elegance and precision.',
-    features: ['Full planning packages', 'Decor and styling', 'Ceremony coordination', 'Reception management'],
+    title: 'Luxury Travel Trailers',
+    description: 'High-quality tiny houses and cabins mounted on trailers. Whether for short-term vacation rentals or long-term residences, our luxury travel trailers combine mobility with premium craftsmanship.',
+    image: '/images/luxury-travel-trailers.png',
+    href: '/services/luxury-travel-trailers',
+  },
+  {
+    title: 'Autonomous Retail',
+    description: 'AI and computer vision powered micromarts delivering the next generation of self-service shopping. With 99.96% transaction accuracy and 1M+ monthly transactions, our autonomous stores serve apartments, offices, hospitals, and transportation hubs.',
+    image: '/images/autonomous-retail-open-store.jpg',
+    href: '/services/autonomous-retail',
   },
 ];
 
 export default function ServicesPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-rose-900 to-rose-800 text-white py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-serif font-bold mb-6">Our Services</h1>
-          <p className="text-xl text-rose-100 max-w-2xl mx-auto">
-            Comprehensive hospitality solutions tailored to your unique needs
+      <section className="bg-gradient-to-br from-rose-900 via-rose-800 to-rose-900 py-24">
+        <div className="max-w-4xl mx-auto px-4 text-center text-white">
+          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6">Our Services</h1>
+          <p className="text-xl text-rose-100">
+            Five innovative service lines designed to elevate hospitality experiences.
           </p>
         </div>
       </section>
 
-      {/* Services Grid */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-16">
             {services.map((service, index) => (
               <div
-                key={index}
-                className="border border-gray-200 rounded-2xl p-8 hover:border-rose-300 hover:shadow-lg transition-all"
+                key={service.title}
+                className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-8 items-center`}
               >
-                <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 mb-6">{service.description}</p>
-                <ul className="space-y-2">
-                  {service.features.map((feature, featureIndex) => (
-                    <li
-                      key={featureIndex}
-                      className="flex items-center text-gray-700"
-                    >
-                      <svg
-                        className="w-5 h-5 text-rose-600 mr-3"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                <div className="lg:w-1/2">
+                  <div className="relative h-80 rounded-2xl overflow-hidden">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+                <div className="lg:w-1/2">
+                  <h2 className="text-3xl font-serif font-bold mb-4">{service.title}</h2>
+                  <p className="text-gray-600 text-lg mb-6">{service.description}</p>
+                  <Link
+                    href={service.href}
+                    className="inline-block bg-rose-800 text-white px-6 py-3 rounded-full hover:bg-rose-900 transition-colors font-medium"
+                  >
+                    Learn More
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-serif font-bold text-gray-900 mb-6">
-            Ready to Get Started?
-          </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Contact us today to discuss how we can help make your event exceptional.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block bg-rose-800 text-white px-8 py-4 rounded-full font-semibold hover:bg-rose-900 transition-colors"
-          >
-            Request a Quote
-          </Link>
         </div>
       </section>
     </>
